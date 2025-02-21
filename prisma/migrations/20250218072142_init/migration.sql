@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `users` MODIFY `PWDHash` VARCHAR(255) NULL,
+    MODIFY `ProfilePic` VARCHAR(255) NULL;

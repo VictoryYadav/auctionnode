@@ -1,0 +1,139 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  UserId      Int      @id @default(autoincrement())
+  email   String   @unique
+  Fullname    String  @db.VarChar(255)
+  MobileNo   String  @db.VarChar(255)
+  Password String  @db.VarChar(255)
+  PWDHash String  @db.VarChar(255)
+  offEmail String?  @db.VarChar(255)
+  LangCd Int @default(0) @db.TinyInt
+  city_id Int @default(0) @db.SmallInt
+  country_code Int @default(0) @db.SmallInt
+  Gender Int @default(0) @db.TinyInt
+  DOB DateTime?        @db.Date
+  ProfilePic String?  @db.VarChar(255)
+  Stat Int @default(0) @db.TinyInt
+  Role Int @default(0) @db.TinyInt
+  created_at DateTime         @default(now()) @db.DateTime(0)
+}
+
+model Auction {
+  ANo      Int      @id @default(autoincrement())
+  ItemName   String?
+  ItemDesc    String?
+  Company   String?
+  UOMCd Int
+  Qty Int
+  LotSize Int @db.SmallInt
+  LotQty Int @db.SmallInt
+  ItemSpecs Int @db.TinyInt
+  Inspection Int @db.TinyInt
+  InspFrmDt DateTime?        @db.Date
+  InspToDt DateTime?        @db.Date
+  InspFromTime DateTime?        @db.Time
+  InspToTime DateTime?        @db.Time
+  AucTyp Int @db.TinyInt
+  ACatg Int @db.TinyInt
+  BasePrice Int
+  TargetPrice Int
+  CurrId Int @db.SmallInt
+  city_id Int @db.SmallInt
+  Pincode  String  @db.VarChar(255)
+  country_code Int @db.SmallInt
+  Addr1  String  @db.VarChar(255)
+  Addr2  String  @db.VarChar(255)
+  DeliveryId Int @db.TinyInt
+  DelCost Int @db.TinyInt
+  FromDt DateTime         @default(now()) @db.DateTime(0)
+  ToDt DateTime         @default(now()) @db.DateTime(0)
+  TicketId Int @db.TinyInt
+  TicketPdDt DateTime         @default(now()) @db.DateTime(0)
+  CreatedDt   DateTime      @default(now()) @db.DateTime(0)
+  UserId Int
+  Stat Int @db.TinyInt
+}
+
+model AuctionImages {
+  INo      Int      @id @default(autoincrement())
+  ANo   Int
+  ImgName  String @db.VarChar(255)
+  Def   Int @db.TinyInt
+  Stat Int @db.TinyInt
+}
+
+model AuctionItemSpecs {
+  SNo      Int      @id @default(autoincrement())
+  ANo   Int
+  Label  String @db.VarChar(255)
+  Description String  @db.VarChar(255)
+  Rank   Int @db.TinyInt
+  Stat Int @db.TinyInt
+}
+
+model BID {
+  BidNo      Int      @id @default(autoincrement())
+  ANo   Int
+  UserId Int
+  BidPrice Int 
+  CurrId   Int @db.TinyInt
+  Stat Int @default(0) @db.TinyInt
+  RejRsonId Int @default(0) @db.TinyInt
+  BidTime DateTime         @default(now()) @db.DateTime(0)
+}
+
+model UOM {
+  UOMCd      Int      @id @default(autoincrement())
+  Name  String @db.VarChar(255)
+  Stat Int
+}
+
+model Countries {
+  id      Int      @id @default(autoincrement())
+  phone_code   Int
+  country_code String  @db.VarChar(255)
+  country_name String  @db.VarChar(255)
+  Stat Int
+}
+
+model City {
+  city_id      Int      @id @default(autoincrement())
+  phone_code   Int
+  city_name String  @db.VarChar(255)
+  Stat Int
+}
+
+model MstTyp {
+  TagId      Int      @id @default(autoincrement())
+  TDesc String  @db.VarChar(255)
+  TagTyp Int
+}
+
+model Reasons {
+  RId      Int      @id @default(autoincrement())
+  ANo Int
+  Reason  String  @db.VarChar(255)
+  created_at DateTime         @default(now()) @db.DateTime(0)
+}
+
+model Currency {
+  CurrId      Int      @id @default(autoincrement())
+  Name  String @db.VarChar(255)
+  code Int
+  symbol  String @db.VarChar(255)
+  Stat Int
+}
